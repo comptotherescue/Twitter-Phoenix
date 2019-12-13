@@ -1,10 +1,9 @@
 import Ecto.Changeset
 defmodule Hello.Client do
     use GenServer
-    use HelloWeb, :channel
 
-    def start_link(socket) do
-        GenServer.start_link(__MODULE__,[socket|[]])
+    def start_link() do
+        GenServer.start_link(__MODULE__,[])
     end
 
     def init(state)do 
@@ -12,7 +11,6 @@ defmodule Hello.Client do
     end
 
     def handle_cast({:register, handleName}, state)do
-        IO.puts "done it bro-----------------------------------------------------------------"
         GenServer.cast(:E2 ,{:register, handleName, handleName, "UFL", 25, "abc@ufl.edu", "abc"})
         {:noreply, state}
     end
@@ -44,18 +42,13 @@ defmodule Hello.Client do
     end
 
     def handle_cast({:tweetrec, tweet, handleName}, state)do
-         #IO.puts tweet
-         #IO.inspect self()
-         [socket|lst] = state
+         lst = state
          lst = lst ++ [tweet]
-         state = [socket | lst]
-         broadcast!(socket, "fetch-Tweet",  tweet)
-         #push(socket, "new_tweet", %{id: handleName, content: tweet})
+         state = lst
         {:noreply, state}
     end
 
     def handle_cast({:subscribe, handleName, subLst}, state)do
-        IO.puts "Kar subscribe"
         Enum.each(subLst, fn x ->
             GenServer.cast(:E2, {:subscribe, x, handleName})
         end)
@@ -63,8 +56,7 @@ defmodule Hello.Client do
     end
 
     def handle_cast({:retweet, handleName}, state)do
-        [socket|lst] = state
-        tweet = List.first(lst)
+        tweet = List.first(state)
         #IO.puts tweet
         if tweet != nil do
             tweet = "Retweet: " <> tweet

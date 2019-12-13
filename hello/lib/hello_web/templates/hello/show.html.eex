@@ -6,21 +6,26 @@
 Subscribe to : <input type="text" id="subscribeTo" ></input> &nbsp <button id="SubstoButton" type="submit">subscribe</button>
 <br>
 <br>
-<button id="signup">sign up</button>
-<br>
-<br>
 <textarea rows="4" cols="50" id="tweet"> </textarea>
 <br>
 <button id="sendTweet">send tweet</button>
-<br>
-<br>
-fetch tweet from user:
-<br>
-<input type="text" id="fetchTweet"></input> &nbsp <button id="fetchTweetButton" type="submit"> fetch </button> 
+<button id="reTweet">re-tweet</button>
 <br>
 <div id="userTweetBox">
        
 </div>
+
+Get tweets for the below hashtag:
+<br>
+<input type="text" id="fetchHash"></input> &nbsp <button id="fetchhashButton" type="submit"> fetch </button> 
+<br>
+<div id="userTweetBox2">
+       
+</div>
+<br>
+<button id="logout">Log out</button>
+<button id="delete">Delete Account</button>
+<br>
 </form>
 
 
@@ -30,6 +35,18 @@ fetch tweet from user:
 
 <style>
  #userTweetBox { 
+                margin:4px, 4px; 
+                background-color: white; 
+                width: 450px; 
+                height: 90px; 
+                overflow-x: hidden; 
+                overflow-x: auto; 
+                text-align:justify; 
+                border : 1px solid black
+            } 
+</style>
+<style>
+ #userTweetBox2 { 
                 margin:4px, 4px; 
                 padding:4px; 
                 background-color: white; 

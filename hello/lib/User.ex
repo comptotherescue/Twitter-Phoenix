@@ -4,6 +4,7 @@ defmodule Hello.User do
     schema "user" do
       field :userID, :string
       field :tweets, :string
+      field :from, :string
       field :read, :integer
     end
 

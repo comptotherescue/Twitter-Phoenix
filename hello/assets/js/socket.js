@@ -10,7 +10,7 @@ socket.connect()
 let channel = socket.channel("room:lobby", {})
 //////////////////////////////////////////////////////// SIGN IN
 
-var si = document.getElementById('new-message');
+var si = document.getElementById('register');
 if(si){
   
   si.addEventListener('submit', (e) => {
@@ -20,7 +20,10 @@ if(si){
    
   let signIn = [messageInput,pwd]
 
- channel.push('sign-in', { message: signIn })
+  channel.push('register', { message: signIn }).receive('ok', function ()
+  {
+   location.href = "http://localhost:4000/hello/"+messageInput;
+  });
 
     
     });
@@ -28,12 +31,8 @@ if(si){
 }
 
 
-
-
 ///////////////////////////////////////////////////// FROM ELIXIR TO JS
 channel.on("room:lobby:new_message", (message) => {
-  console.log("message", message)
-  //output-board
  document.getElementById('output-board').innerHTML = message["content"]
 
 });
@@ -60,6 +59,17 @@ if(el){
 }
 
 
+
+channel.on("Log-in", (message) => {
+  
+  if(message["status"] == 1){
+  document.getElementById('loginstatus').innerHTML = "Logged in successfully";
+  }
+  else{
+    document.getElementById('loginstatus').innerHTML = "Invalid credentials!";
+  }
+  });
+
 ///////////////////// LOGGED IN USER CODES
 
 // SUBSCRIBE TO 
@@ -71,7 +81,6 @@ if(subsTo){
     c1.preventDefault()
     let username = document.getElementById('userName').innerHTML
     let subscriberData =  document.getElementById('subscribeTo').value
-    // console.log(user)
     let SubscriberList = [username,subscriberData]
    channel.push('Subscribe-TO', { message: SubscriberList })
   
@@ -87,9 +96,51 @@ if(sendTweetE){
 
     let username = document.getElementById('userName').innerHTML
     let tweetMsg =  document.getElementById('tweet').value
-    console.log("Here")
    let TweetData = [username,tweetMsg]
-   channel.push('sign-up', { message: TweetData })
+   channel.push('send-Tweet', { message: TweetData })
+
+  });
+}
+
+// LOG OUT
+var logout = document.getElementById('logout');
+if(logout){
+  logout.addEventListener('click', (c1) => {
+    c1.preventDefault()
+   let username = document.getElementById('userName').innerHTML
+   let TweetData = [username]
+   channel.push('logout', { message: TweetData }).receive('ok', function ()
+     {
+      location.href = "http://localhost:4000/hello/";
+     });
+
+  });
+}
+
+// DELETE ACCOUNT
+var deleteA = document.getElementById('delete');
+if(deleteA){
+  deleteA.addEventListener('click', (c1) => {
+    c1.preventDefault()
+   let username = document.getElementById('userName').innerHTML
+   let TweetData = [username]
+   channel.push('delete', { message: TweetData }).receive('ok', function ()
+   {
+    location.href = "http://localhost:4000/hello/";
+   });
+
+  });
+}
+
+// SEND TWEET
+var reTweetE = document.getElementById('reTweet');
+if(reTweetE){
+  reTweetE.addEventListener('click', (c1) => {
+    c1.preventDefault()
+
+    let username = document.getElementById('userName').innerHTML
+   let TweetData = [username]
+   channel.push('re-Tweet', { message: TweetData })
 
   });
 }
@@ -103,33 +154,49 @@ if(sendTweetE){
     let username = document.getElementById('userName').innerHTML
 
    let TweetData = [username]
-   channel.push('send-Tweet', { message: TweetData })
+   channel.push('sign-up', { message: TweetData })
 
   });
 }
 // FETCH TWEET FROM SPECEFIC USERS
 
-var fetchTweetE = document.getElementById('fetchTweetButton');
+var fetchTweetE = document.getElementById('userTweetBox');
 if(fetchTweetE){
-
+  setInterval(()=>{fetchTweetE.click()},2*1000);
   fetchTweetE.addEventListener('click', (c2) => {
     c2.preventDefault()
-    var fromUserString =  document.getElementById('fetchTweet').value
-    
-    var fromUserList = fromUserString.split(' ');
-    console.log(fromUserList)
-
-  channel.push('fetch-Tweet', { message: fromUserList })
+    let username = document.getElementById('userName').innerHTML
+   let TweetData = [username]
+  channel.push('fetch-Tweet', { message: TweetData })
 
   });
 }
 
 channel.on("fetch-Tweet", (message) => {
  
-  console.log("message",message)  
-  document.getElementById('userTweetBox').innerHTML = JSON.stringify(message)
+  document.getElementById('userTweetBox').innerText = "";
+  document.getElementById('userTweetBox').append(JSON.stringify(message))
   
   });
+
+  // Fetch tweets for specific hashtags
+  var fetchHashE = document.getElementById('fetchhashButton');
+if(fetchTweetE){
+  fetchHashE.addEventListener('click', (c2) => {
+    c2.preventDefault()
+ 
+    let hashtag = document.getElementById('fetchHash').value
+   let TweetData = [hashtag]
+  channel.push('fetch-hash', { message: TweetData })
+
+  });
+}
+  channel.on("fetch-hash", (message) => {
+ 
+    document.getElementById('userTweetBox2').innerText = "";
+    document.getElementById('userTweetBox2').append(JSON.stringify(message))
+    
+    });
 
 
 //

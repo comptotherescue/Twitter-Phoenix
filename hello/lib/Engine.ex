@@ -27,7 +27,7 @@ defmodule Hello.Engine do
         {:noreply, state}
     end
 
-    def handle_cast({:subscribe, handleName, tofollow}, state)do
+    def handle_cast({:subscribe, tofollow, handleName}, state)do
         subscriber = %Hello.Subscribers{userID: tofollow, follower: handleName}
         Hello.Repo.insert(subscriber)
         {:noreply, state}
@@ -60,12 +60,12 @@ defmodule Hello.Engine do
         mentionLst = parseTweet(tweet, handleName)
         query = from(u in "subscribers", where: u.userID == ^handleName, select: u.follower)
         lst =  Hello.Repo.all(query)
+        IO.inspect lst
         tweetfun(lst, tweet, handleName)
         if mentionLst != []do
             tweet = "Mentioned by: " <> handleName <> " Tweet: " <> tweet
             tweetfun(mentionLst, tweet, handleName) 
         end
-        send(Process.whereis(:supervisor),{:Converged})
         {:noreply, state}
     end
 
@@ -95,9 +95,10 @@ defmodule Hello.Engine do
         Enum.each(lst, fn x -> 
             query2 = from u in "user_profile", where: u.userID == ^x, select: u.status
             lst = Hello.Repo.all(query2)
+            IO.inspect lst
             if lst != [] do
                 if List.first(lst) == true do
-                    record = %Hello.User{userID: x, tweets: tweet, read: 1}
+                    record = %Hello.User{userID: x, tweets: tweet, from: handleName, read: 1}
                     Hello.Repo.insert(record)
                     GenServer.cast(Process.whereis(String.to_atom(x)),{:tweetrec, tweet, handleName})
                 else

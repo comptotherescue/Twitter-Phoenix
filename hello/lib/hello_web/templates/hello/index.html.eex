@@ -1,3 +1,69 @@
-<div class="phx-hero">
-<h2>Hello World, from Phoenix </h2>
+<hr>
+<ul class="list-group mt-5" id="messages">
+
+</ul>
+
+<div style="float:left" id="box">
+<form class="input-group mt-3" id="register">
+Register
+<br>
+  <input type="text" class="form-control"  id="message-content"  placeholder="username" />
+  <br>
+  <input type="password" class="form-control"  id="pwd-content"  placeholder="password" />
+  <div class="input-group-append">
+    <button class="btn btn-outline-success" type="submit">Submit</button>
+  </div>
+</form>
+
+<br>
+<form class="input-group mt-3" id="Log-in">
+Log in
+<br>
+  <input type="text" class="form-control"  id="logIn-username"  placeholder="username" />
+  <br>
+  <input type="password" class="form-control"  id="logIn-pwd"  placeholder="password" />
+  <div class="input-group-append">
+    <button class="btn btn-outline-success" type="submit" id="loginButton">Submit</button>
+    
+  </div>
+  <h4 id = "loginstatus"></h4>
+ 
+</form>
+
+  </div>
+
+
+  <div id = "output-board">
+  </div>
 </div>
+
+
+
+
+<style> 
+#box {
+    
+}
+.form-control {
+  display: inline-block !important; 
+  float: left;  
+  width: 51%;
+  height : 6px;
+  padding: 10px 35px;
+  margin: 4px 10px;
+  
+  border: 2px solid #B0E0E6;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+.form-control:focus {
+  border: 2px solid #1E90FF;
+}
+.input-group mt-3{
+ 
+    display: inline-block;
+    float : left;
+    
+}
+</style>
