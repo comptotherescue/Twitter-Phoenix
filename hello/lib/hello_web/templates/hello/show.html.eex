@@ -1,0 +1,43 @@
+<div class="phx-hero">
+  <h2>Welcome <span id="userName" ><%= @messenger %></span>!</h2>
+
+</div>
+<form id="loggedIN">
+Subscribe to : <input type="text" id="subscribeTo" ></input> &nbsp <button id="SubstoButton" type="submit">subscribe</button>
+<br>
+<br>
+<button id="signup">sign up</button>
+<br>
+<br>
+<textarea rows="4" cols="50" id="tweet"> </textarea>
+<br>
+<button id="sendTweet">send tweet</button>
+<br>
+<br>
+fetch tweet from user:
+<br>
+<input type="text" id="fetchTweet"></input> &nbsp <button id="fetchTweetButton" type="submit"> fetch </button> 
+<br>
+<div id="userTweetBox">
+       
+</div>
+</form>
+
+
+
+
+
+
+<style>
+ #userTweetBox { 
+                margin:4px, 4px; 
+                padding:4px; 
+                background-color: white; 
+                width: 450px; 
+                height: 90px; 
+                overflow-x: hidden; 
+                overflow-x: auto; 
+                text-align:justify; 
+                border : 1px solid black
+            } 
+</style>
