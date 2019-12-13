@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :twitter_phoenix,
-  ecto_repos: [TwitterPhoenix.Repo]
+config :hello,
+  ecto_repos: [Hello.Repo]
 
 # Configures the endpoint
-config :twitter_phoenix, TwitterPhoenixWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "YSziwlhoFJ1eMm73l/m8xehXBbS8lx8HznMp93SDcEmCeVh/BwiTSJJczPeTCFFM",
-  render_errors: [view: TwitterPhoenixWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: TwitterPhoenix.PubSub, adapter: Phoenix.PubSub.PG2]
+config :hello, HelloWeb.Endpoint,
+  url: [host: "127.0.0.1/32"],
+  secret_key_base: "3A70hVDJvRFAZyfU2KiNLkrwBFJ/HN9VztvJ75lpiyRq9zrbuWphHtDxjYXmzw8K",
+  render_errors: [view: HelloWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Hello.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -1,9 +1,9 @@
 use Mix.Config
 
 # Configure your database
-config :twitter_phoenix, TwitterPhoenix.Repo,
+config :hello, Hello.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "abcd",
   database: "twitter_phoenix_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -15,7 +15,7 @@ config :twitter_phoenix, TwitterPhoenix.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :twitter_phoenix, TwitterPhoenixWeb.Endpoint,
+config :hello, HelloWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,13 +55,13 @@ config :twitter_phoenix, TwitterPhoenixWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :twitter_phoenix, TwitterPhoenixWeb.Endpoint,
+config :hello, HelloWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/twitter_phoenix_web/{live,views}/.*(ex)$",
-      ~r"lib/twitter_phoenix_web/templates/.*(eex)$"
+      ~r"lib/hello_web/{live,views}/.*(ex)$",
+      ~r"lib/hello_web/templates/.*(eex)$"
     ]
   ]
 

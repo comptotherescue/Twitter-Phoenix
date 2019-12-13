@@ -1,4 +1,4 @@
-defmodule TwitterPhoenixWeb.ChannelCase do
+defmodule HelloWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule TwitterPhoenixWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint TwitterPhoenixWeb.Endpoint
+      @endpoint HelloWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(TwitterPhoenix.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Hello.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(TwitterPhoenix.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Hello.Repo, {:shared, self()})
     end
 
     :ok
